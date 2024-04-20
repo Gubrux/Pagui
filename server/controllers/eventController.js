@@ -18,7 +18,7 @@ const createEvent = async (req, res) => {
         let savedEvent = await event.save();
         let payment = new Payment({
             userName: eventData.userName,
-            amount: eventData.amount,
+            cost: eventData.cost,
             payment: eventData.payment,
             eventId: savedEvent._id,
             rating: savedEvent.rating,

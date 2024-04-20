@@ -30,12 +30,19 @@ function EventsTable() {
         getEvents();
     }, []);
 
-    const handleEventPayment = (eventId, eventTitle, payment, userName) => {
+    const handleEventPayment = (
+        eventId,
+        eventTitle,
+        payment,
+        userName,
+        cost
+    ) => {
         navigate(`/events/${eventId}`, {
             state: {
                 eventTitle: eventTitle,
                 payment: payment,
                 userName: userName,
+                cost: cost,
             },
         });
     };
@@ -59,6 +66,7 @@ function EventsTable() {
                     <tr>
                         <th>Event Title</th>
                         <th>Avg. Rating</th>
+                        <th>Cost</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -72,6 +80,7 @@ function EventsTable() {
                             <tr key={event._id}>
                                 <td>{event.title}</td>
                                 <td>{event.avgRating}</td>
+                                <td>{event.cost}</td>
                                 <td>
                                     <button
                                         onClick={() => {

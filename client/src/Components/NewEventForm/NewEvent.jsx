@@ -63,7 +63,7 @@ function NewEvent() {
     return (
         <>
             <div>
-                <h1>Submit an Event and your Payment</h1>
+                <h1>Submit an Event and your Cost</h1>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="title">Event title:</label>
                     {errors.title && <small>{errors.title}</small>}
@@ -84,6 +84,8 @@ function NewEvent() {
                             onChange={handleChange}
                         />
                     </label>
+                    <label htmlFor="cost">Cost:</label>
+                    <input name="cost" type="number" onChange={handleChange} />
                     <label htmlFor="payment">Your payment:</label>
                     <textarea name="payment" onChange={handleChange}></textarea>
                     <button type="submit">Submit</button>

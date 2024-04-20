@@ -11,6 +11,7 @@ const PaymentSchema = new Schema({
         ref: "Events",
         required: true,
     },
+    cost: { type: Number, required: true },
     rating: {
         type: Number,
         min: 0,
