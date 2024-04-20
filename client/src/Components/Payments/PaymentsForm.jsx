@@ -69,7 +69,9 @@ function PaymentForm() {
 
     const handleCancel = () => {
         console.log("Cancel");
-        navigate(`/events/${id}`);
+        navigate(`/events/${id}`, {
+            state: { eventTitle: state.eventTitle },
+        });
     };
     return (
         <>
