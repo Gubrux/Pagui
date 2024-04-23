@@ -33,12 +33,12 @@
     box-sizing: border-box;
 }
 
-/* Estilos para los pequeños mensajes de error */
+
 .PaymentFormContainer small {
     color: red;
 }
 
-/* Estilos para los botones del formulario */
+
 .PaymentFormContainer button {
     background-color: #007bff;
     color: #fff;
@@ -50,12 +50,12 @@
     margin-right: 10px;
 }
 
-/* Estilos para el botón de cancelar */
+
 .PaymentFormContainer button:last-child {
     background-color: #dc3545;
 }
 
-/* Estilos para el botón de enviar */
+
 .PaymentFormContainer button[type="submit"] {
     background-color: #28a745;
 }

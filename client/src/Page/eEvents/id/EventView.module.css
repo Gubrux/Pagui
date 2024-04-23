@@ -44,17 +44,14 @@
     margin-right: 10px;
 }
 
-/* Estilos para el botón de eliminar */
 .eventViewContainer button.deleteButton {
     background-color: #dc3545;
 }
 
-/* Estilos para el segundo conjunto de tablas */
 .eventViewContainer:nth-child(2) table {
     margin-top: 20px;
 }
 
-/* Estilos para los botones en las celdas */
 .eventViewContainer button.deleteButton,
 .eventViewContainer button.deleteButton:hover {
     background-color: #dc3545;

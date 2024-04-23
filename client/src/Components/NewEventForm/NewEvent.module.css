@@ -8,20 +8,15 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 500px; /* Establece un ancho máximo */
 }
-
-/* Estilos para el título del formulario */
 .newEventFormContainer h1 {
     font-size: 24px;
     margin-bottom: 20px;
 }
-
-/* Estilos para las etiquetas de los campos */
 .newEventFormContainer label {
     display: block;
     margin-bottom: 5px;
 }
 
-/* Estilos para los campos de entrada */
 .newEventFormContainer input[type="text"],
 .newEventFormContainer input[type="number"],
 .newEventFormContainer textarea {
@@ -33,12 +28,9 @@
     box-sizing: border-box;
 }
 
-/* Estilos para los pequeños mensajes de error */
 .newEventFormContainer small {
     color: red;
 }
-
-/* Estilos para los botones del formulario */
 .newEventFormContainer button {
     background-color: #007bff;
     color: #fff;
@@ -50,19 +42,17 @@
     margin-right: 10px;
 }
 
-/* Estilos para el botón de cancelar */
 .newEventFormContainer button:last-child {
     background-color: #dc3545;
 }
 
-/* Estilos para el botón de enviar */
 .newEventFormContainer button[type="submit"] {
     background-color: #28a745;
 }
 
-/* Estilos para el textarea */
+
 .newEventFormContainer textarea {
-    resize: none; /* Elimina la capacidad de redimensionamiento */
+    resize: none; 
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
