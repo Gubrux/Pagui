@@ -23,7 +23,6 @@ const LoginForm = (props) => {
                 "La password no puede tener menos de 5 caracteres";
             flag = false;
         }
-        //...
         setErrors(errors);
         return flag;
     };

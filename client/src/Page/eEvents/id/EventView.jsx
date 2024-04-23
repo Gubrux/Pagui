@@ -14,7 +14,6 @@ function EventView() {
     const eventTitle = state.eventTitle;
     const userName = localStorage.getItem("userName");
     const cost = state.cost;
-    // console.log(cost)
 
     const getPayments = () => {
         let client = new HTTPClient();

@@ -7,7 +7,7 @@ const {
 } = require("../controllers/loginController");
 const router = express.Router();
 
-// router.get("/login/");
+router.get("/login/");
 router.post("/register/", register);
 router.post("/login/", login);
 router.post("/refresh/", refresh);

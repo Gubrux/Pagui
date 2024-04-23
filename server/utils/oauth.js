@@ -1,8 +1,3 @@
-
-//Header
-//...
-//Authorization: Bearer <Token>
-
 const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = "$ecRet0_"

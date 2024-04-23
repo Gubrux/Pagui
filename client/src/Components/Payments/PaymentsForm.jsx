@@ -46,16 +46,14 @@ function PaymentForm() {
         let client = new HTTPClient();
         const parsedPaymentAmount = parseFloat(paymentAmount); // Convertir a número
         const remainingCost = eventCost - parsedPaymentAmount;
-        // Crear un nuevo pago con el monto ingresado
         client
             .createPayment(id, {
                 userName: userName,
                 eventId: id,
-                cost: parsedPaymentAmount, // Utilizar el valor convertido
+                cost: parsedPaymentAmount,
                 payment: comment,
             })
             .then(() => {
-                // Redirigir de vuelta al evento después de realizar el pago
                 navigate(`/events/${id}`, {
                     state: { eventTitle: state.eventTitle },
                 });
@@ -80,7 +78,7 @@ function PaymentForm() {
         <>
             <div className={styles.PaymentFormContainer}>
                 <form onSubmit={handleSubmit}>
-                <h1>Make a payment for the event: {state.eventTitle}</h1>
+                    <h1>Make a payment for the event: {state.eventTitle}</h1>
                     <label htmlFor="userName">
                         Debtor:
                         <input

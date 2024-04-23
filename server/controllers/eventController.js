@@ -31,7 +31,7 @@ const createEvent = async (req, res) => {
                 errors[key] = error.errors[key].message;
             });
 
-            res.status(400).json({ errors: errors }); //TODO: Revisar los codigos de errores.
+            res.status(400).json({ errors: errors }); 
         } else {
             res.status(500).json({ error: error.toString() });
         }
@@ -48,7 +48,7 @@ const getAllEvents = async (req, res) => {
                 errors[key] = error.errors[key].message;
             });
 
-            res.status(400).json({ errors: errors }); //TODO: Revisar los codigos de errores.
+            res.status(400).json({ errors: errors });
         } else {
             res.status(500).json({ error: error.toString() });
         }
@@ -76,7 +76,7 @@ const createPayment = async (req, res) => {
                 errors[key] = error.errors[key].message;
             });
 
-            res.status(400).json({ errors: errors }); //TODO: Revisar los codigos de errores.
+            res.status(400).json({ errors: errors }); 
         } else {
             res.status(500).json({ error: error.toString() });
         }
@@ -95,7 +95,7 @@ const getPaymentsByEvent = async (req, res) => {
                 errors[key] = error.errors[key].message;
             });
 
-            res.status(400).json({ errors: errors }); //TODO: Revisar los codigos de errores.
+            res.status(400).json({ errors: errors }); 
         } else {
             res.status(500).json({ error: error.toString() });
         }

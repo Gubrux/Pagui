@@ -16,7 +16,6 @@ const register = async (req, res) => {
                 .json({ errors: { name: "The name is already taken" } });
         }
         if (existUser) {
-            // TODO: Cambiar el codigo de error :v
             return res.status(500).json({
                 errors: {
                     email: "This email is already taken",
@@ -124,7 +123,6 @@ const refresh = (req, res) => {
     }
 };
 const logout = async (req, res) => {
-    //TODO Implementar logout mas tarde
     try {
         res.clearCookie("token");
         res.json({ message: "Cookie eliminada" });
