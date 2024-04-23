@@ -1,0 +1,71 @@
+/* Estilos para el contenedor de la tabla */
+.tableContainer {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el encabezado */
+.tableContainer h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el botón de agregar evento */
+.tableContainer button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Estilos para la tabla */
+.tableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Estilos para las celdas del encabezado */
+.tableContainer th {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Estilos para las celdas del cuerpo */
+.tableContainer td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+/* Estilos para el mensaje cuando no hay eventos */
+.tableContainer td[colspan="3"] {
+    text-align: center;
+    font-style: italic;
+}
+
+/* Estilos para los botones en las celdas */
+.tableContainer button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+/* Estilos para el segundo botón en las celdas */
+.tableContainer button:nth-child(2) {
+    background-color: #dc3545;
+}

@@ -1,40 +1,34 @@
 import HTTPClient from "../../Utils/HTTPClient";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
+import styles from "./PaymentsForm.module.css";
 function PaymentForm() {
     const { id } = useParams();
     const { state } = useLocation();
-    const [data, setData] = useState({});
+    console.log(state);
+    const { cost } = useParams();
+    console.log(cost);
+    const [paymentAmount, setPaymentAmount] = useState("");
+    const [comment, setComment] = useState("");
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
     const userName = localStorage.getItem("userName");
+    const eventCost = state.cost;
+    console.log(eventCost);
+    const handlePaymentAmountChange = (event) => {
+        setPaymentAmount(event.target.value);
+    };
 
-    const handleChange = (event) => {
-        setData({
-            eventId: id,
-            userName: userName,
-            ...data,
-            [event.target.name]: event.target.value,
-        });
+    const handleCommentChange = (event) => {
+        setComment(event.target.value);
     };
 
     const validate = () => {
         let flag = true;
         let errors = {};
 
-        if (!data.userName) {
-            errors.userName = "The user name is required";
-            flag = false;
-        }
-
-        if (!data.rating) {
-            errors.rating = "The rating is required";
-            flag = false;
-        }
-
-        if (!data.payment) {
-            errors.payment = "The comment is required";
+        if (!paymentAmount) {
+            errors.pay = "The payment amount is required";
             flag = false;
         }
 
@@ -50,9 +44,18 @@ function PaymentForm() {
         }
 
         let client = new HTTPClient();
+        const parsedPaymentAmount = parseFloat(paymentAmount); // Convertir a número
+        const remainingCost = eventCost - parsedPaymentAmount;
+        // Crear un nuevo pago con el monto ingresado
         client
-            .createPayment(id, data)
+            .createPayment(id, {
+                userName: userName,
+                eventId: id,
+                cost: parsedPaymentAmount, // Utilizar el valor convertido
+                payment: comment,
+            })
             .then(() => {
+                // Redirigir de vuelta al evento después de realizar el pago
                 navigate(`/events/${id}`, {
                     state: { eventTitle: state.eventTitle },
                 });
@@ -68,16 +71,16 @@ function PaymentForm() {
     };
 
     const handleCancel = () => {
-        console.log("Cancel");
         navigate(`/events/${id}`, {
             state: { eventTitle: state.eventTitle },
         });
     };
+
     return (
         <>
-            <div>
-                <h1>Make a payment for the event: {state.eventTitle}</h1>
+            <div className={styles.PaymentFormContainer}>
                 <form onSubmit={handleSubmit}>
+                <h1>Make a payment for the event: {state.eventTitle}</h1>
                     <label htmlFor="userName">
                         Debtor:
                         <input
@@ -87,22 +90,22 @@ function PaymentForm() {
                             disabled
                         />
                     </label>
-                    {errors.userName && <small>{errors.userName}</small>}
-                    <label htmlFor="rating">
-                        Rating:
-                        <input
-                            type="number"
-                            id="rating"
-                            name="rating"
-                            onChange={handleChange}
-                        />
-                    </label>
-                    {errors.rating && <small>{errors.rating}</small>}
+                    <label htmlFor="pay">Payment amount:</label>
+                    <input
+                        type="number"
+                        name="pay"
+                        value={paymentAmount}
+                        onChange={handlePaymentAmountChange}
+                    />
+                    {errors.pay && <small>{errors.pay}</small>}
                     <label htmlFor="payment">
                         Commentary:
-                        <textarea name="payment" onChange={handleChange} />
+                        <textarea
+                            name="payment"
+                            value={comment}
+                            onChange={handleCommentChange}
+                        />
                     </label>
-                    {errors.payment && <small>{errors.payment}</small>}
                     <button type="submit">Submit</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </form>

@@ -11,6 +11,7 @@ const EventSchema = new Schema({
         type: String,
         required: [true, "The event needs a username."],
     },
+    cost: { type: Number, required: [true, "The event need a cost"] },
 });
 
 const Event = mongoose.model("Events", EventSchema);

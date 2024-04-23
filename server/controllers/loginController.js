@@ -17,13 +17,11 @@ const register = async (req, res) => {
         }
         if (existUser) {
             // TODO: Cambiar el codigo de error :v
-            return res
-                .status(500)
-                .json({
-                    errors: {
-                        email: "This email is already taken for other user",
-                    },
-                });
+            return res.status(500).json({
+                errors: {
+                    email: "This email is already taken",
+                },
+            });
         }
 
         let hash = await new Promise((resolve, reject) => {
@@ -110,11 +108,6 @@ const refresh = (req, res) => {
             id: payload.id,
             name: payload.name,
         };
-        /*
-        del payload.iat
-        del payload.exp
-        */
-
         let token = jwt.sign(payload, JWT_SECRET, {
             expiresIn: "30s",
         });

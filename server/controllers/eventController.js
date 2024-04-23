@@ -14,14 +14,13 @@ const createEvent = async (req, res) => {
         let event = new Event({
             title: eventData.title,
             userName: eventData.userName,
+            cost: eventData.cost,
         });
         let savedEvent = await event.save();
         let payment = new Payment({
             userName: eventData.userName,
-            cost: eventData.cost,
             payment: eventData.payment,
             eventId: savedEvent._id,
-            rating: savedEvent.rating,
         });
         await payment.save();
         res.json({ event });

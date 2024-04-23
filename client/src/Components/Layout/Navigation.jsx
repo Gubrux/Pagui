@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import styles from "./Navigation.module.css";
 
 function Navigation() {
     const navigate = useNavigate();
@@ -7,13 +8,9 @@ function Navigation() {
     };
     return (
         <>
-            <div >
-                <a href="/events" >
-                    Pagui
-                </a>
-                <button  onClick={handleLogout}>
-                    Logout
-                </button>
+            <div className={styles.navigation}>
+                <a href="/events">Pagui</a>
+                <button onClick={handleLogout}>Logout</button>
             </div>
         </>
     );

@@ -1,0 +1,65 @@
+/* Estilos para el contenedor del formulario de pago */
+.PaymentFormContainer {
+    font-family: Arial, sans-serif;
+    margin: 20px auto; /* Centra el formulario */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Establece un ancho máximo */
+}
+
+/* Estilos para el título del formulario */
+.PaymentFormContainer h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilos para las etiquetas de los campos */
+.PaymentFormContainer label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Estilos para los campos de entrada */
+.PaymentFormContainer input[type="text"],
+.PaymentFormContainer input[type="number"],
+.PaymentFormContainer textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilos para los pequeños mensajes de error */
+.PaymentFormContainer small {
+    color: red;
+}
+
+/* Estilos para los botones del formulario */
+.PaymentFormContainer button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Estilos para el botón de cancelar */
+.PaymentFormContainer button:last-child {
+    background-color: #dc3545;
+}
+
+/* Estilos para el botón de enviar */
+.PaymentFormContainer button[type="submit"] {
+    background-color: #28a745;
+}
+
+.PaymentFormContainer textarea {
+    resize: none;
+}

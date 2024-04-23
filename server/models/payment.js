@@ -1,5 +1,5 @@
-const moongoose = require("mongoose");
-const { Schema } = moongoose;
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const PaymentSchema = new Schema({
     userName: {
@@ -11,17 +11,13 @@ const PaymentSchema = new Schema({
         ref: "Events",
         required: true,
     },
-    cost: { type: Number, required: true },
-    rating: {
-        type: Number,
-        min: 0,
-        default: 0,
-    },
+    // pay: { type: Number, required: [true, "add your pay please"] },
+
     payment: {
         type: String,
     },
 });
-const Payment = moongoose.model("Payments", PaymentSchema);
+const Payment = mongoose.model("Payments", PaymentSchema);
 module.exports = {
     Payment,
 };

@@ -1,0 +1,61 @@
+/* Estilos para el contenedor principal */
+.eventViewContainer {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+/* Estilos para los títulos */
+.eventViewContainer h1,
+.eventViewContainer h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para las tablas */
+.eventViewContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Estilos para las celdas del encabezado */
+.eventViewContainer th {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Estilos para las celdas del cuerpo */
+.eventViewContainer td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+/* Estilos para los botones */
+.eventViewContainer button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Estilos para el botón de eliminar */
+.eventViewContainer button.deleteButton {
+    background-color: #dc3545;
+}
+
+/* Estilos para el segundo conjunto de tablas */
+.eventViewContainer:nth-child(2) table {
+    margin-top: 20px;
+}
+
+/* Estilos para los botones en las celdas */
+.eventViewContainer button.deleteButton,
+.eventViewContainer button.deleteButton:hover {
+    background-color: #dc3545;
+}

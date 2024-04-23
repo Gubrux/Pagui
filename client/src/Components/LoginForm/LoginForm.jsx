@@ -1,7 +1,7 @@
 import { useState } from "react";
 import HTTPClient from "../../Utils/HTTPClient";
 import { useNavigate } from "react-router-dom";
-
+import styles from "./LoginForm.module.css";
 const LoginForm = (props) => {
     const [errors, setErrors] = useState({});
     const [data, setData] = useState({});
@@ -53,12 +53,16 @@ const LoginForm = (props) => {
 
     return (
         <>
-            <div >
-                <h1>Login</h1>
-                <form onSubmit={handleSubmit}>
+            <div className={styles.loginContainer}>
+                <form onSubmit={handleSubmit} className={styles.loginForm}>
+                    <h1>Login</h1>
                     <div>
                         <label htmlFor="email">Email</label>
-                        {errors.email && <small>{errors.email}</small>}
+                        {errors.email && (
+                            <small className={styles.loginFormError}>
+                                {errors.email}
+                            </small>
+                        )}
                         <input
                             id="email"
                             type="email"
@@ -70,7 +74,11 @@ const LoginForm = (props) => {
                     </div>
                     <div>
                         <label htmlFor="password">Password</label>
-                        {errors.password && <small>{errors.password}</small>}
+                        {errors.password && (
+                            <small className={styles.loginFormError}>
+                                {errors.password}
+                            </small>
+                        )}
                         <input
                             id="password"
                             type="password"
@@ -83,12 +91,12 @@ const LoginForm = (props) => {
                     </div>
                     <div>
                         <button>Log In</button>
-                        <p>
-                            not registred?
-                            <div>
+                        <div>
+                            <p>
+                                not registred? <br />
                                 <a href="/">Register now</a>
-                            </div>
-                        </p>
+                            </p>
+                        </div>
                     </div>
                 </form>
             </div>

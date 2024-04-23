@@ -3,14 +3,18 @@ import { useState, useEffect } from "react";
 import HTTPClient from "../../../Utils/HTTPClient";
 
 import Layout from "../../../Components/Layout/Layout";
+import styles from "./EventView.module.css";
 
 function EventView() {
+    const [payments, setPayments] = useState([]);
     const { id } = useParams();
     const { state } = useLocation();
+    console.log(state);
     const navigate = useNavigate();
     const eventTitle = state.eventTitle;
-    const [payments, setPayments] = useState([]);
     const userName = localStorage.getItem("userName");
+    const cost = state.cost;
+    // console.log(cost)
 
     const getPayments = () => {
         let client = new HTTPClient();
@@ -39,21 +43,22 @@ function EventView() {
     return (
         <>
             <Layout />
-            <div>
-                <h1>{eventTitle}</h1>
+            <div className={styles.eventViewContainer}>
+                <h1>Event: {eventTitle}</h1>
                 <table>
                     <thead>
                         <tr>
-                            <th>Payment made by:</th>
-                            <th>Rating</th>
-                            <th>Payment</th>
+                            <th>Created By</th>
+                            <th>Total event cost</th>
+                            <th>Comment</th>
                         </tr>
                     </thead>
                     <tbody>
                         {payments.map((payment) => (
                             <tr key={payment._id}>
-                                <td>
-                                    {payment.userName}
+                                <td>{payment.userName}</td>
+                                <td>{cost}</td>
+                                <td>{payment.payment}</td>
                                     {payment.userName === userName && (
                                         <button
                                             onClick={() => {
@@ -65,9 +70,6 @@ function EventView() {
                                             delete
                                         </button>
                                     )}
-                                </td>
-                                <td>{payment.rating}</td>
-                                <td>{payment.payment}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -79,6 +81,27 @@ function EventView() {
                 >
                     Delete Event
                 </button>
+            </div>
+            <div className={styles.eventViewContainer}>
+                <h2>Payments list:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Payer</th>
+                            <th>Amount</th>
+                            <th>Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {payments.map((payment) => (
+                            <tr key={payment._id}>
+                                <td>{payment.userName}</td>
+                                <td>{payment.cost}</td>
+                                <td>{payment.payment}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </>
     );

@@ -1,31 +1,21 @@
 import HTTPClient from "../../Utils/HTTPClient";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import styles from "./EventsTable.module.css";
 function EventsTable() {
     const [events, setEvents] = useState([]);
     const navigate = useNavigate();
+
     const getEvents = async () => {
-        let client = new HTTPClient();
-        const eventsResponse = await client.getAllEvents();
-        const eventsWithAvgRating = await Promise.all(
-            eventsResponse.data.events.map(async (event) => {
-                const paymentsResponse = await client.getPaymentsByEvent(
-                    event._id
-                );
-                const totalRating = paymentsResponse.data.payments.reduce(
-                    (acc, payment) => acc + payment.rating,
-                    0
-                );
-                const avgRating =
-                    paymentsResponse.data.payments.length > 0
-                        ? totalRating / paymentsResponse.data.payments.length
-                        : 0;
-                return { ...event, avgRating };
-            })
-        );
-        setEvents(eventsWithAvgRating);
+        try {
+            let client = new HTTPClient();
+            const eventsResponse = await client.getAllEvents();
+            setEvents(eventsResponse.data.events);
+        } catch (error) {
+            console.error("Error fetching events:", error);
+        }
     };
+
     useEffect(() => {
         getEvents();
     }, []);
@@ -45,10 +35,15 @@ function EventsTable() {
                 cost: cost,
             },
         });
+        console.log(eventId, eventTitle, payment, userName, cost);
     };
-    const handleMakePayment = (eventId, eventTitle) => {
+    const handleMakePayment = (eventId, eventTitle, eventCost, payment) => {
         navigate(`/events/${eventId}/payment`, {
-            state: { eventTitle: eventTitle },
+            state: {
+                eventTitle: eventTitle,
+                cost: eventCost,
+                payment: payment,
+            },
         });
     };
     const handleAddEvent = () => {
@@ -56,7 +51,7 @@ function EventsTable() {
     };
 
     return (
-        <div>
+        <div className={styles.tableContainer}>
             <div>
                 <h1>Events List</h1>
                 <button onClick={handleAddEvent}>Add a New Event</button>
@@ -65,8 +60,7 @@ function EventsTable() {
                 <thead>
                     <tr>
                         <th>Event Title</th>
-                        <th>Avg. Rating</th>
-                        <th>Cost</th>
+                        <th>Total event cost</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -79,7 +73,6 @@ function EventsTable() {
                         events.map((event) => (
                             <tr key={event._id}>
                                 <td>{event.title}</td>
-                                <td>{event.avgRating}</td>
                                 <td>{event.cost}</td>
                                 <td>
                                     <button
@@ -88,7 +81,8 @@ function EventsTable() {
                                                 event._id,
                                                 event.title,
                                                 event.payment,
-                                                event.userName
+                                                event.userName,
+                                                event.cost
                                             );
                                         }}
                                     >
@@ -98,7 +92,8 @@ function EventsTable() {
                                         onClick={() => {
                                             handleMakePayment(
                                                 event._id,
-                                                event.title
+                                                event.title,
+                                                event.cost
                                             );
                                         }}
                                     >

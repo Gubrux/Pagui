@@ -2,6 +2,8 @@ import { useState } from "react";
 import HTTPClient from "../../Utils/HTTPClient";
 import { useNavigate } from "react-router-dom";
 
+import styles from "./RegisterForm.module.css";
+
 const RegisterForm = (props) => {
     const [data, setData] = useState({});
     const [errors, setErrors] = useState({});
@@ -17,6 +19,11 @@ const RegisterForm = (props) => {
     const validate = () => {
         let flag = true;
         let errors = {};
+
+        if (!data.name || data.name.lenght <= 5) {
+            errors.name = "The name is required";
+            flag = false;
+        }
 
         if (data.password.lenght <= 5) {
             errors.password = "The password must be at least 5 characters long";
@@ -59,10 +66,15 @@ const RegisterForm = (props) => {
     };
 
     return (
-        <div>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
+        <div className={styles.registerContainer}>
+            <form onSubmit={handleSubmit} className={styles.registerForm}>
+                <h1>Register</h1>
                 <div>
+                    {errors.name && (
+                        <small className={styles.registerFormError}>
+                            {errors.name}
+                        </small>
+                    )}
                     <label htmlFor="name">Name</label>
                     <input
                         id="name"
@@ -74,8 +86,12 @@ const RegisterForm = (props) => {
                     />
                 </div>
                 <div>
+                    {errors.email && (
+                        <small className={styles.registerFormError}>
+                            {errors.email}
+                        </small>
+                    )}
                     <label htmlFor="email">Email</label>
-                    {errors.email && <small>{errors.email}</small>}
                     <input
                         id="email"
                         type="email"
@@ -86,8 +102,12 @@ const RegisterForm = (props) => {
                     />
                 </div>
                 <div>
+                    {errors.password && (
+                        <small className={styles.registerFormError}>
+                            {errors.password}
+                        </small>
+                    )}
                     <label htmlFor="password">Password</label>
-                    {errors.password && <small>{errors.password}</small>}
                     <input
                         id="password"
                         type="password"
@@ -100,7 +120,11 @@ const RegisterForm = (props) => {
                 </div>
                 <div>
                     <label htmlFor="password2">Confirm password</label>
-                    {errors.password2 && <small>{errors.password2}</small>}
+                    {errors.password2 && (
+                        <small className={styles.registerFormError}>
+                            {errors.password2}
+                        </small>
+                    )}
                     <input
                         id="password2"
                         type="password"
