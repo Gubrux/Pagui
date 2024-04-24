@@ -19,8 +19,9 @@ const createEvent = async (req, res) => {
         let savedEvent = await event.save();
         let payment = new Payment({
             userName: eventData.userName,
-            payment: eventData.payment,
+            comment: eventData.comment,
             eventId: savedEvent._id,
+            payAmount: eventData.payAmount,
         });
         await payment.save();
         res.json({ event });
@@ -31,7 +32,7 @@ const createEvent = async (req, res) => {
                 errors[key] = error.errors[key].message;
             });
 
-            res.status(400).json({ errors: errors }); 
+            res.status(400).json({ errors: errors });
         } else {
             res.status(500).json({ error: error.toString() });
         }
@@ -76,7 +77,7 @@ const createPayment = async (req, res) => {
                 errors[key] = error.errors[key].message;
             });
 
-            res.status(400).json({ errors: errors }); 
+            res.status(400).json({ errors: errors });
         } else {
             res.status(500).json({ error: error.toString() });
         }
@@ -95,7 +96,7 @@ const getPaymentsByEvent = async (req, res) => {
                 errors[key] = error.errors[key].message;
             });
 
-            res.status(400).json({ errors: errors }); 
+            res.status(400).json({ errors: errors });
         } else {
             res.status(500).json({ error: error.toString() });
         }

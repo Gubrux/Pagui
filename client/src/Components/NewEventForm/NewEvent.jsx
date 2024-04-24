@@ -1,15 +1,16 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { EventContext } from "../../context/EventContext";
 import HTTPClient from "../../Utils/HTTPClient";
-
+import { useNavigate } from "react-router-dom";
 import styles from "./NewEvent.module.css";
 
 function NewEvent() {
+    const { setEvents } = useContext(EventContext);
     const [data, setData] = useState({
         title: "",
         userName: localStorage.getItem("userName"),
         cost: 0,
-        payment: "",
+        comment: "",
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
@@ -65,7 +66,10 @@ function NewEvent() {
         client
             .createEvent(data)
             .then((response) => {
-                navigate("/events");
+                client.getAllEvents().then((eventsResponse) => {
+                    setEvents(eventsResponse.data.events);
+                    navigate("/events");
+                });
             })
             .catch((error) => {
                 if (error.response) {
@@ -99,8 +103,8 @@ function NewEvent() {
                     {errors.cost && <small>{errors.cost}</small>}
                     <label htmlFor="cost">Total cost:</label>
                     <input name="cost" type="number" onChange={handleChange} />
-                    <label htmlFor="payment">Your Payment:</label>
-                    <textarea name="payment" onChange={handleChange}></textarea>
+                    <label htmlFor="comment">Your Comment:</label>
+                    <textarea name="comment" onChange={handleChange}></textarea>
                     <button type="submit">Submit</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </form>

@@ -11,9 +11,9 @@ const PaymentSchema = new Schema({
         ref: "Events",
         required: true,
     },
-    // pay: { type: Number, required: [true, "add your pay please"] },
+    // payAmount: { type: Number, required: [true, "add your pay please"] },
 
-    payment: {
+    comment: {
         type: String,
     },
 });
