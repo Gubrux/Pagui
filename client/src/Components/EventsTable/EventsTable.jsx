@@ -1,51 +1,40 @@
-import HTTPClient from "../../Utils/HTTPClient";
-import { useState, useEffect } from "react";
+import React, { useContext } from "react";
+import { EventContext } from "../../context/EventContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./EventsTable.module.css";
+
 function EventsTable() {
-    const [events, setEvents] = useState([]);
+    const { events } = useContext(EventContext);
     const navigate = useNavigate();
-
-    const getEvents = async () => {
-        try {
-            let client = new HTTPClient();
-            const eventsResponse = await client.getAllEvents();
-            setEvents(eventsResponse.data.events);
-        } catch (error) {
-            console.error("Error fetching events:", error);
-        }
-    };
-
-    useEffect(() => {
-        getEvents();
-    }, []);
 
     const handleEventPayment = (
         eventId,
         eventTitle,
-        payment,
+        comment,
         userName,
         cost
     ) => {
         navigate(`/events/${eventId}`, {
             state: {
                 eventTitle: eventTitle,
-                payment: payment,
+                comment: comment,
                 userName: userName,
                 cost: cost,
             },
         });
-        console.log(eventId, eventTitle, payment, userName, cost);
+        console.log(eventId, eventTitle, comment, userName, cost);
     };
-    const handleMakePayment = (eventId, eventTitle, eventCost, payment) => {
+
+    const handleMakePayment = (eventId, eventTitle, eventCost, comment) => {
         navigate(`/events/${eventId}/payment`, {
             state: {
                 eventTitle: eventTitle,
                 cost: eventCost,
-                payment: payment,
+                comment: comment,
             },
         });
     };
+
     const handleAddEvent = () => {
         navigate("/events/new");
     };
@@ -80,7 +69,7 @@ function EventsTable() {
                                             handleEventPayment(
                                                 event._id,
                                                 event.title,
-                                                event.payment,
+                                                event.comment,
                                                 event.userName,
                                                 event.cost
                                             );
