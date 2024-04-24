@@ -5,7 +5,7 @@ const UserSchema = new Schema({
     name: {
         type: String,
         required: [true, "The user needs a first name"],
-        minlength: [10, "The name must be at least 10 characters long"],
+        minlength: [6, "The name must be at least 10 characters long"],
     },
     email: {
         type: String,

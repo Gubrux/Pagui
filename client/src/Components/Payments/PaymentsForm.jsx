@@ -10,7 +10,7 @@ function PaymentForm() {
     const { state } = useLocation();
     const navigate = useNavigate();
     const userName = localStorage.getItem("userName");
-    const eventCost = state.cost;
+    const eventCost = state.eventCost;
     const [paymentAmount, setPaymentAmount] = useState("");
     const [comment, setComment] = useState("");
     const [errors, setErrors] = useState({});
@@ -51,7 +51,7 @@ function PaymentForm() {
             .createPayment(id, {
                 userName: userName,
                 eventId: id,
-                cost: parsedPaymentAmount,
+                eventCost: parsedPaymentAmount,
                 comment: comment,
             })
             .then(() => {
