@@ -22,9 +22,11 @@ class HTTPClient {
     createEvent(data) {
         return this.instance.post("/events/new", data);
     }
+
     getAllEvents() {
         return this.instance.get("/events");
     }
+
     createPayment(eventId, data) {
         return this.instance.post(`/events/${eventId}/payment`, data);
     }
@@ -36,8 +38,17 @@ class HTTPClient {
     deleteEvent(eventId) {
         return this.instance.delete(`/events/${eventId}`);
     }
+
     deletePayment(eventId, paymentId) {
         return this.instance.delete(`/events/${eventId}/payments/${paymentId}`);
+    }
+
+    getAllUsers() {
+        return this.instance.get("/users");
+    }
+
+    getUser(userId) {
+        return this.instance.get(`/users/${userId}`);
     }
 }
 
