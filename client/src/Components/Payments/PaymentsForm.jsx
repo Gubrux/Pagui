@@ -1,19 +1,20 @@
+import React, { useState, useContext } from "react";
+import { EventContext } from "../../context/EventContext";
 import HTTPClient from "../../Utils/HTTPClient";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import styles from "./PaymentsForm.module.css";
+
 function PaymentForm() {
     const { id } = useParams();
+    const { events, setEvents } = useContext(EventContext);
     const { state } = useLocation();
-    console.log(state);
-    const { cost } = useParams();
-    console.log(cost);
-    const [paymentAmount, setPaymentAmount] = useState("");
-    const [comment, setComment] = useState("");
-    const [errors, setErrors] = useState({});
     const navigate = useNavigate();
     const userName = localStorage.getItem("userName");
     const eventCost = state.cost;
+    const [paymentAmount, setPaymentAmount] = useState("");
+    const [comment, setComment] = useState("");
+    const [errors, setErrors] = useState({});
+
     console.log(eventCost);
     const handlePaymentAmountChange = (event) => {
         setPaymentAmount(event.target.value);
@@ -44,14 +45,14 @@ function PaymentForm() {
         }
 
         let client = new HTTPClient();
-        const parsedPaymentAmount = parseFloat(paymentAmount); // Convertir a número
+        const parsedPaymentAmount = parseFloat(paymentAmount);
         const remainingCost = eventCost - parsedPaymentAmount;
         client
             .createPayment(id, {
                 userName: userName,
                 eventId: id,
                 cost: parsedPaymentAmount,
-                payment: comment,
+                comment: comment,
             })
             .then(() => {
                 navigate(`/events/${id}`, {
@@ -96,10 +97,10 @@ function PaymentForm() {
                         onChange={handlePaymentAmountChange}
                     />
                     {errors.pay && <small>{errors.pay}</small>}
-                    <label htmlFor="payment">
+                    <label htmlFor="comment">
                         Commentary:
                         <textarea
-                            name="payment"
+                            name="comment"
                             value={comment}
                             onChange={handleCommentChange}
                         />
