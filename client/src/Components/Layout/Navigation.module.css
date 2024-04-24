@@ -1,19 +1,26 @@
 .navigation {
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    /* other styles */
+}
+.navigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #333;
-    color: white;
+    background-color: #21225e;
 }
 .navigation a {
-    color: white;
+    color: #f5014a;
     text-decoration: none;
     font-size: xx-large;
+    font-weight: 500;
+}
+.navigation label {
+    color: aliceblue;
 }
 
 .navigation button {
-    background-color: #e11111;
+    background-color: #dd0033;
     color: white;
     padding: 10px 20px;
     width: 150px;

@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #c4adad;
+    background-color: #fdf0d5;
 }
 .loginForm {
     display: flex;
@@ -11,7 +11,8 @@
     justify-content: center;
     align-items: center;
     width: 300px;
-    background-color: #f0f0f0;
+    color: aliceblue;
+    background-color: #21225e;
     border-radius: 10px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
@@ -32,7 +33,7 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #c4adad;
+    background-color: #f1014b;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -42,4 +43,7 @@
     font-size: 12px;
     margin: 0;
     padding: 0;
+}
+.loginForm a {
+    color: #f0195a;
 }

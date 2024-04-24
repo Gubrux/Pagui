@@ -24,9 +24,9 @@
 }
 
 .tableContainer table {
-    width: 70%; 
+    width: 70%;
     border-collapse: collapse;
-    margin: auto; 
+    margin: auto;
     margin-top: 20px;
 }
 
@@ -34,13 +34,13 @@
     background-color: #007bff;
     color: #fff;
     padding: 10px;
-    text-align: center; 
+    text-align: center;
 }
 
 .tableContainer td {
     border: 1px solid #ccc;
     padding: 10px;
-    text-align: center; 
+    text-align: center;
 }
 
 .tableContainer td[colspan="3"] {
