@@ -7,29 +7,29 @@ function EventsTable() {
     const { events } = useContext(EventContext);
     const navigate = useNavigate();
 
-    const handleEventPayment = (
+    const handleSeePayment = (
         eventId,
         eventTitle,
         comment,
         userName,
-        cost
+        eventCost
     ) => {
         navigate(`/events/${eventId}`, {
             state: {
                 eventTitle: eventTitle,
                 comment: comment,
                 userName: userName,
-                cost: cost,
+                eventCost: eventCost,
             },
         });
-        console.log(eventId, eventTitle, comment, userName, cost);
+        console.log(eventId, eventTitle, comment, userName, eventCost);
     };
 
     const handleMakePayment = (eventId, eventTitle, eventCost, comment) => {
         navigate(`/events/${eventId}/payment`, {
             state: {
                 eventTitle: eventTitle,
-                cost: eventCost,
+                eventCost: eventCost,
                 comment: comment,
             },
         });
@@ -49,7 +49,8 @@ function EventsTable() {
                 <thead>
                     <tr>
                         <th>Event Title</th>
-                        <th>Total event cost</th>
+                        <th>Total event eventCost</th>
+                        <th>Total Participants</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -62,16 +63,17 @@ function EventsTable() {
                         events.map((event) => (
                             <tr key={event._id}>
                                 <td>{event.title}</td>
-                                <td>{event.cost}</td>
+                                <td>{event.eventCost}</td>
+                                <td>{event.participants.length}</td>
                                 <td>
                                     <button
                                         onClick={() => {
-                                            handleEventPayment(
+                                            handleSeePayment(
                                                 event._id,
                                                 event.title,
                                                 event.comment,
                                                 event.userName,
-                                                event.cost
+                                                event.eventCost
                                             );
                                         }}
                                     >
@@ -82,7 +84,7 @@ function EventsTable() {
                                             handleMakePayment(
                                                 event._id,
                                                 event.title,
-                                                event.cost
+                                                event.eventCost
                                             );
                                         }}
                                     >

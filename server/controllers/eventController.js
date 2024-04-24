@@ -8,23 +8,30 @@ const createEvent = async (req, res) => {
         let existEvent = await Event.exists({ title: eventData.title });
 
         if (existEvent) {
-            return res.status(403).json({ errors: { title: "This event is" } });
+            return res
+                .status(403)
+                .json({ errors: { title: "This event already exists" } });
         }
+
+        const totalParticipants = eventData.participants.length;
+        const individualCost = eventData.eventCost / totalParticipants;
+
+        const participantsWithCosts = eventData.participants.map(
+            (participant) => ({
+                participant: participant,
+                participantCost: individualCost,
+            })
+        );
 
         let event = new Event({
             title: eventData.title,
-            userName: eventData.userName,
-            cost: eventData.cost,
+            createdBy: eventData.createdBy,
+            eventCost: eventData.eventCost,
+            participants: participantsWithCosts,
         });
+
         let savedEvent = await event.save();
-        let payment = new Payment({
-            userName: eventData.userName,
-            comment: eventData.comment,
-            eventId: savedEvent._id,
-            payAmount: eventData.payAmount,
-        });
-        await payment.save();
-        res.json({ event });
+        res.json({ event: savedEvent });
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError) {
             let errors = {};
@@ -38,6 +45,7 @@ const createEvent = async (req, res) => {
         }
     }
 };
+
 const getAllEvents = async (req, res) => {
     try {
         let events = await Event.find();
@@ -55,7 +63,6 @@ const getAllEvents = async (req, res) => {
         }
     }
 };
-
 const createPayment = async (req, res) => {
     let paymentData = req.body;
     let eventId = req.params.eventId;
@@ -64,9 +71,27 @@ const createPayment = async (req, res) => {
         if (!event) {
             return res.status(404).json({ error: "Event not found" });
         }
+
+        let payerIndex = event.participants.findIndex(
+            (participant) =>
+                participant.participant.toString() ===
+                paymentData.payers.toString()
+        );
+        if (payerIndex === -1) {
+            return res
+                .status(400)
+                .json({ error: "Payer not found in participants list" });
+        }
+
+        event.participants[payerIndex].participantCost -=
+            paymentData.paymentAmount;
+
+        await event.save();
         let payment = new Payment({
-            ...paymentData,
-            eventId,
+            eventId: eventId,
+            payers: paymentData.payers,
+            paymentAmount: paymentData.paymentAmount,
+            comments: paymentData.comments,
         });
         await payment.save();
         res.json({ payment });
@@ -102,7 +127,6 @@ const getPaymentsByEvent = async (req, res) => {
         }
     }
 };
-
 const deleteEvent = async (req, res) => {
     let eventId = req.params.eventId;
     try {
@@ -113,6 +137,7 @@ const deleteEvent = async (req, res) => {
         res.status(500).json({ error: error.toString() });
     }
 };
+
 const deletePayment = async (req, res) => {
     let paymentId = req.params.paymentId;
     try {

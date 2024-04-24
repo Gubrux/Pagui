@@ -9,7 +9,7 @@ function Navigation() {
     return (
         <>
             <div className={styles.navigation}>
-                <a href="/events">Pagui</a>
+                <a href="/events"> <label>Pa</label>Gui</a>
                 <button onClick={handleLogout}>Logout</button>
             </div>
         </>
