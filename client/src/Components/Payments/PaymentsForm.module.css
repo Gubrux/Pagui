@@ -1,27 +1,23 @@
-/* Estilos para el contenedor del formulario de pago */
 .PaymentFormContainer {
     font-family: Arial, sans-serif;
-    margin: 20px auto; /* Centra el formulario */
+    margin: 20px auto; 
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 500px; /* Establece un ancho máximo */
+    max-width: 500px;
 }
 
-/* Estilos para el título del formulario */
 .PaymentFormContainer h1 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-/* Estilos para las etiquetas de los campos */
 .PaymentFormContainer label {
     display: block;
     margin-bottom: 10px;
 }
 
-/* Estilos para los campos de entrada */
 .PaymentFormContainer input[type="text"],
 .PaymentFormContainer input[type="number"],
 .PaymentFormContainer textarea {

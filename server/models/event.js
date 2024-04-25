@@ -27,6 +27,10 @@ const EventSchema = new Schema({
         type: Number,
         required: [true, "The event needs a cost"],
     },
+    remainingCost: {
+        type: Number,
+        default: 0,
+    },
     participants: [ParticipantSchema],
     createdAt: { type: Date, default: Date.now },
 });

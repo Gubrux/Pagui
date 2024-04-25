@@ -3,6 +3,8 @@ import { EventContext } from "../../context/EventContext";
 import HTTPClient from "../../Utils/HTTPClient";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import styles from "./EventIdTable.module.css";
+import { usePayments } from "../../hooks/usePayments";
+import { formateador } from "../../Utils/formatter";
 
 function EventTable() {
     const { id } = useParams();
@@ -11,33 +13,8 @@ function EventTable() {
     const navigate = useNavigate();
     const eventTitle = state.eventTitle;
     const userName = localStorage.getItem("userName");
-    const [payments, setPayments] = useState([]);
-    const [totalAmountPaid, setTotalAmountPaid] = useState({});
-
-    const getPayments = () => {
-        let client = new HTTPClient();
-        client.getPaymentsByEvent(id).then((response) => {
-            setPayments(response.data.payments);
-            calculateTotalAmountPaid(response.data.payments);
-        });
-    };
-
-    useEffect(() => {
-        getPayments();
-    }, []);
-
-    const calculateTotalAmountPaid = (payments) => {
-        const amounts = {};
-        payments.forEach((payment) => {
-            if (amounts[payment.userName]) {
-                amounts[payment.userName] += payment.cost;
-            } else {
-                amounts[payment.userName] = payment.cost;
-            }
-        });
-        setTotalAmountPaid(amounts);
-    };
-
+    const { payments, loading } = usePayments(id);
+    console.log(payments);
     const handleDelete = (eventId) => {
         let client = new HTTPClient();
         client.deleteEvent(eventId).then(() => {
@@ -70,32 +47,28 @@ function EventTable() {
                     <tbody>
                         {payments.map((payment) => (
                             <tr key={payment._id}>
-                                <td>{payment.userName}</td>
-                                <td>{totalAmountPaid[payment.userName]}</td>
-                                <td>
-                                    {payment.comment}
-                                    {payment.userName === userName && (
-                                        <button
-                                            onClick={() => {
-                                                handleDeletePayment(
-                                                    payment._id
-                                                );
-                                            }}
-                                        >
-                                            delete
-                                        </button>
-                                    )}
-                                </td>
+                                <td>{payment.payer}</td>
+                                <td>{formateador(payment.paymentAmount)}</td>
+                                <td>{payment.comment}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
                 <button
+                    className={styles.deleteButton}
                     onClick={() => {
                         handleDelete(id);
                     }}
                 >
                     Delete Event
+                </button>
+                <button
+                    className={styles.goBackButton}
+                    onClick={() => {
+                        navigate("/events");
+                    }}
+                >
+                    Go back
                 </button>
             </div>
         </>

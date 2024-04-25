@@ -27,6 +27,7 @@ const createEvent = async (req, res) => {
             title: eventData.title,
             createdBy: eventData.createdBy,
             eventCost: eventData.eventCost,
+            remainingCost: eventData.eventCost,
             participants: participantsWithCosts,
         });
 
@@ -65,45 +66,39 @@ const getAllEvents = async (req, res) => {
 };
 const createPayment = async (req, res) => {
     let paymentData = req.body;
-    let eventId = req.params.eventId;
+    console.log(paymentData);
+    let eventId = req.body.eventId;
     try {
         let event = await Event.findById(eventId);
         if (!event) {
             return res.status(404).json({ error: "Event not found" });
         }
 
-        let payerIndex = event.participants.findIndex(
-            (participant) =>
-                participant.participant.toString() ===
-                paymentData.payers.toString()
-        );
-        if (payerIndex === -1) {
-            return res
-                .status(400)
-                .json({ error: "Payer not found in participants list" });
-        }
-
-        event.participants[payerIndex].participantCost -=
-            paymentData.paymentAmount;
+        event.remainingCost -= paymentData.paymentAmount;
 
         await event.save();
+        console.log("comentario" + paymentData.comment);
         let payment = new Payment({
             eventId: eventId,
-            payers: paymentData.payers,
+            payer: paymentData.userName,
             paymentAmount: paymentData.paymentAmount,
-            comments: paymentData.comments,
+            comment: paymentData.comment,
         });
-        await payment.save();
-        res.json({ payment });
+
+        let savedPayment = await payment.save();
+        res.json({ payment: savedPayment });
     } catch (error) {
         if (error instanceof mongoose.Error.ValidationError) {
             let errors = {};
             Object.keys(error.errors).map((key) => {
                 errors[key] = error.errors[key].message;
             });
-
+            console.log("soy un error 400");
+            console.log(JSON.stringify(errors, null, 2));
             res.status(400).json({ errors: errors });
         } else {
+            console.log("aca");
+            console.log(error.toString());
             res.status(500).json({ error: error.toString() });
         }
     }
